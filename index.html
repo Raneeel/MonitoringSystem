@@ -30,7 +30,40 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-            // Your code to fetch data and create the chart goes here
+        const dataRef = db.ref("monitoring-system/food-level");
+
+        dataRef.on("value", snapshot => {
+            const data = [];
+            const labels = [];
+
+            snapshot.forEach(child => {
+                data.push(child.val().distance);
+                labels.push(new Date(child.val().timestamp).toLocaleString());
+            });
+
+            const ctx = document.getElementById("food-level-chart").getContext("2d");
+            const foodLevelChart = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Food Level",
+                            data: data,
+                  borderColor: "rgba(75, 192, 192, 1)",
+                            backgroundColor: "rgba(75, 192, 192, 0.2)",
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            });
+        });
     </script>
 </body>
 </html>
