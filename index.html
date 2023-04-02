@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Level Monitoring</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.9/firebase-database.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Food Level Monitoring</h1>
+
+    <div id="chart-container">
+        <canvas id="food-level-chart"></canvas>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCl8UPwGOulz-_sSdh4enTRGdOEMLCOMok",
+            authDomain: "mandalusemonitoringsystem.firebaseapp.com",
+            databaseURL: "https://mandalusemonitoringsystem-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "mandalusemonitoringsystem",
+            storageBucket: "mandalusemonitoringsystem.appspot.com",
+            messagingSenderId: "534892084586",
+            appId: "1:534892084586:web:8a34fa77b58c6872f7b913",
+            measurementId: "G-3HQFWZSGDE"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+            // Your code to fetch data and create the chart goes here
+    </script>
+</body>
+</html>
