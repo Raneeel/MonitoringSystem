@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Level Monitoring</title>
+    <title>Monitoring</title>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-    <h1>Food Level Monitoring</h1>
+    <h1>Mändaluse monitooring</h1>
 
-    <div id="latest-food-level">Loading...</div>
-    <div id="latest-fuel-level">Loading...</div>
+    <div id="latest-food-level">Loen andmeid...</div>
+    <div id="latest-fuel-level">Loen andmeid...</div>
 
     <script>
         // Firebase configuration
@@ -42,10 +42,10 @@
                 latestFoodLevel = child.val().distance;
             });
 
-            console.log("Latest food level:", latestFoodLevel, "%");
+            console.log("Jõusööda tase:", latestFoodLevel, "%");
 
             const foodLevelDiv = document.getElementById("latest-food-level");
-            foodLevelDiv.innerHTML = `Latest Food Level: ${latestFoodLevel}%`;
+            foodLevelDiv.innerHTML = `Jõusööda tase: ${latestFoodLevel}%`;
         });
         // Fetch and display the latest fuel level value
         dataFuelRef.limitToLast(1).on("value", (snapshot) => {
@@ -55,10 +55,10 @@
                 latestFuelLevel = child.val().distance;
             });
 
-            console.log("Latest fuel level:", latestFuelLevel, "%");
+            console.log("Kütuse tase:", latestFuelLevel, "%");
 
             const fuelLevelDiv = document.getElementById("latest-fuel-level");
-            fuelLevelDiv.innerHTML = `Latest Fuel Level: ${latestFuelLevel}%`;
+            fuelLevelDiv.innerHTML = `Kütuse tase: ${latestFuelLevel}%`;
         });
     </script>
 </body>
