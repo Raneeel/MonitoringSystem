@@ -7,14 +7,11 @@
     <title>Food Level Monitoring</title>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h1>Food Level Monitoring1</h1>
 
-    <div id="chart-container">
-        <canvas id="food-level-chart"></canvas>
-    </div>
+    <div id="latest-food-level">Loading...</div>
 
     <script>
         const firebaseConfig = {
@@ -32,41 +29,18 @@
 
         const dataRef = db.ref("monitoring-system/food-level");
 
-        dataRef.on("value", snapshot => {
-            const data = [];
-            const labels = [];
+        // Fetch and display the latest food level value
+        dataRef.limitToLast(1).on("value", (snapshot) => {
+            let latestFoodLevel;
 
-            snapshot.forEach(child => {
-                data.push(child.val().distance);
-                labels.push(new Date(child.val().timestamp).toLocaleString());
+            snapshot.forEach((child) => {
+                latestFoodLevel = child.val().distance;
             });
 
-            console.log("Snapshot data:", snapshot.val()); // for debugging
-            console.log("Fetched data:", data);
-            console.log("Fetched labels:", labels);
+            console.log("Latest food level:", latestFoodLevel);
 
-            const ctx = document.getElementById("food-level-chart").getContext("2d");
-            const foodLevelChart = new Chart(ctx, {
-                type: "line",
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: "Food Level",
-                            data: data,
-                  borderColor: "rgba(75, 192, 192, 1)",
-                            backgroundColor: "rgba(75, 192, 192, 0.2)",
-                        },
-                    ],
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                        },
-                    },
-                },
-            });
+            const foodLevelDiv = document.getElementById("latest-food-level");
+            foodLevelDiv.innerHTML = Latest Food Level: ${ latestFoodLevel };
         });
     </script>
 </body>
