@@ -12,6 +12,7 @@
     <h1>Food Level Monitoring</h1>
 
     <div id="latest-food-level">Loading...</div>
+    <div id="latest-fuel-level">Loading...</div>
 
     <script>
         // Firebase configuration
@@ -30,21 +31,35 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        const dataRef = db.ref("monitoring-system/food-level");
+        const dataFoodRef = db.ref("monitoring-system/food-level");
+        const dataFuelRef = db.ref("monitoring-system/fuel-level");
 
         // Fetch and display the latest food level value
-        dataRef.limitToLast(1).on("value", (snapshot) => {
+        dataFoodRef.limitToLast(1).on("value", (snapshot) => {
             let latestFoodLevel;
 
             snapshot.forEach((child) => {
                 latestFoodLevel = child.val().distance;
             });
 
-            console.log("Latest food level:", latestFoodLevel);
+            console.log("Latest food level:", latestFoodLevel, "%");
 
             const foodLevelDiv = document.getElementById("latest-food-level");
-            foodLevelDiv.innerHTML = `Latest Food Level: ${latestFoodLevel}`;
-        });
+            foodLevelDiv.innerHTML = `Latest Food Level: ${latestFoodLevel}%`;
+
+        // Fetch and display the latest fuel level value
+        dataFuelRef.limitToLast(1).on("value", (snapshot) => {
+            let latestFuelLevel;
+
+            snapshot.forEach((child) => {
+                latestFuelLevel = child.val().distance;
+            });
+
+            console.log("Latest fuel level:", latestFuelLevel, "%");
+
+            const fuelLevelDiv = document.getElementById("latest-fuel-level");
+            fuelLevelDiv.innerHTML = `Latest Fuel Level: ${latestFuelLevel}%`;
+            });
     </script>
 </body>
 </html>
