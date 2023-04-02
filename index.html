@@ -46,7 +46,7 @@
 
             const foodLevelDiv = document.getElementById("latest-food-level");
             foodLevelDiv.innerHTML = `Latest Food Level: ${latestFoodLevel}%`;
-
+        });
         // Fetch and display the latest fuel level value
         dataFuelRef.limitToLast(1).on("value", (snapshot) => {
             let latestFuelLevel;
@@ -59,7 +59,7 @@
 
             const fuelLevelDiv = document.getElementById("latest-fuel-level");
             fuelLevelDiv.innerHTML = `Latest Fuel Level: ${latestFuelLevel}%`;
-            });
+        });
     </script>
 </body>
 </html>
